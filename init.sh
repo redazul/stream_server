@@ -8,3 +8,4 @@ sudo adduser jc
 sudo add-apt-repository ppa:obsproject/obs-studio
 sudo apt update
 sudo apt install ffmpeg obs-studio
+sudo ufw allow from any to any port 3389 proto tcp
