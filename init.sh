@@ -1,5 +1,5 @@
 sudo apt update
-y | sudo apt upgrade
+sudo apt upgrade
 sudo apt-get install ubuntu-desktop
 sudo apt install xrdp
 sudo systemctl status xrdp
