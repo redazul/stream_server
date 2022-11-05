@@ -37,6 +37,12 @@ root@server:~/clockwork/lib# cat geyser-plugin-config.json
   "worker_id": 3 <---- put your worker id
 }
 
+#send metrics to influxDB on Solana's Foundation hosted Grafana Dashboard
+export SOLANA_METRICS_CONFIG="host=https://metrics.solana.com:8086,db=mainnet-beta,u=mainnet-beta_write,p=password"
+ 
+#network config
+sudo $(command -v solana-sys-tuner) --user $(whoami) > sys-tuner.log 2>&1 &
+
 #start long term validato process...validato is not a typo ;)
 nohup solana-validator --geyser-plugin-config /root/clockwork/lib/geyser-plugin-config.json --identity ~/validator-keypair.json --rpc-port 8899 --entrypoint entrypoint.devnet.solana.com:8001 --limit-ledger-size --no-voting --log /var/log/solana-validator.log &
 
