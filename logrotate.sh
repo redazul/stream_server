@@ -1,1 +1,6 @@
-
+/var/log/solana/*.log {
+        maxsize 200M
+        hourly
+        missingok
+        rotate 0
+}
