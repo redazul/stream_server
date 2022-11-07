@@ -37,16 +37,18 @@ root@server:~/clockwork/lib# cat geyser-plugin-config.json
   "worker_id": 3 <---- put your worker id
 }
 
+#setup logrotate for /var/log/solana/*log
+wget https://raw.githubusercontent.com/redazul/stream_server/main/logrotate -O /etc/logrotate.d/solana_validator
+mkdir /var/log/solana
+
 #send metrics to influxDB on Solana's Foundation hosted Grafana Dashboard
 export SOLANA_METRICS_CONFIG="host=https://metrics.solana.com:8086,db=mainnet-beta,u=mainnet-beta_write,p=password"
+
+#clean old data
+rm -rf ledger
  
 #network config
 sudo $(command -v solana-sys-tuner) --user $(whoami) > sys-tuner.log 2>&1 &
-
-#setup logrotate for /var/log/solana/*log
-wget -O /etc/logrotate.d/https://raw.githubusercontent.com/redazul/stream_server/main/logrotate
-
-mkdir /var/log/solana
 
 #start long term validato process...validato is not a typo ;)
 nohup solana-validator --geyser-plugin-config /root/clockwork/lib/geyser-plugin-config.json --identity ~/validator-keypair.json --rpc-port 8899 --entrypoint entrypoint.mainnet-beta.solana.com:8001 --entrypoint entrypoint2.mainnet-beta.solana.com:8001 --entrypoint entrypoint3.mainnet-beta.solana.com:8001 --entrypoint entrypoint4.mainnet-beta.solana.com:8001 --entrypoint entrypoint5.mainnet-beta.solana.com:8001     --known-validator 7Np41oeYqPefeNQEHSv1UDhYrehxin3NStELsSKCT4K2  --known-validator GdnSyH3YtwcxFvQrVVJMm1JhTS4QVX7MFsX56uJLUfiZ  --known-validator DE1bawNcRJB9rVm3buyMVfr8mBEoyyu73NBovf2oXJsJ --known-validator CakcnaRDHka2gXyfbEd2d3xsvkJkqsLw2akB3zsN1D2S --limit-ledger-size --no-voting --log /var/log/solana/solana-validator.log &
