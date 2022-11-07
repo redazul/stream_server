@@ -40,6 +40,7 @@ root@server:~/clockwork/lib# cat geyser-plugin-config.json
 #setup logrotate for /var/log/solana/*log
 wget https://raw.githubusercontent.com/redazul/stream_server/main/logrotate -O /etc/logrotate.d/solana_validator
 mkdir /var/log/solana
+systemctl restart logrotate.service
 
 #send metrics to influxDB on Solana's Foundation hosted Grafana Dashboard
 export SOLANA_METRICS_CONFIG="host=https://metrics.solana.com:8086,db=mainnet-beta,u=mainnet-beta_write,p=password"
