@@ -47,6 +47,8 @@ export SOLANA_METRICS_CONFIG="host=https://metrics.solana.com:8086,db=mainnet-be
 
 #clean old data
 rm -rf ledger
+
+#failed at 12G 
  
 #network config
 sudo $(command -v solana-sys-tuner) --user $(whoami) > sys-tuner.log 2>&1 &
